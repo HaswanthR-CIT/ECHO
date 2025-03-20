@@ -7,10 +7,18 @@ const User = require("../models/User");
 // JWT Secret (replace with a secure key in production, e.g., store in .env)
 const JWT_SECRET = "your_jwt_secret";
 
-// Signup Route
-router.post("/signup", async (req, res) => {
-  const { username, password } = req.body;
+// Register Route (changed from /signup to /register)
+router.post("/register", async (req, res) => {
+  const { username, password, confirmPassword } = req.body;
   try {
+    // Validate input
+    if (!username || !password || !confirmPassword) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: "Passwords do not match" });
+    }
+
     // Check if user already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {
