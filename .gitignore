@@ -1,0 +1,13 @@
+# Node.js
+node_modules/
+npm-debug.log
+.DS_Store
+
+# Environment variables
+server/.env
+
+# Build output
+client/build/
+
+# Temporary files
+audit-report.json
